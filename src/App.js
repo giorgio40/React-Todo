@@ -1,87 +1,101 @@
 import React from 'react';
+import TodoList from './components/TodoList'
+import TodoForm from "./components/TodoForm"
+import './components/Todo.css';
 
-
-const todos = [{
-  task: "walk the dog",
-  id: Date.now(),
-  complete:false
-},
-{
-  task:"goto the grocery store",
-  id: Date.now(),
-  complete:false
+const todos = [
+  {
+    task: 'Walk the Dog',
+    id: 1,
+    completed: false
   },
   {
-  task: "learn React",
-  id:Date.now(),
-  complete:false
+    task: 'Feed the Dog',
+    id: 2,
+    completed: false
+  },
+  {
+    task: 'WorkOut',
+    id: 3,
+    completed: false
+  },
+  {
+    task: 'Get Groceries',
+    id: 4,
+    completed: false
+  },
+  {
+    task: 'Get Gas',
+    id: 5,
+    completed: false
+  },
+  {
+    task: 'Learn React',
+    id: 6,
+    completed: false
   }
-
-]
-
-
-
-
-
-
-
-
-
-
-
-
-
+];
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.State{
-      todos: 
-    }
-  }
-  handleItemToggle = (itemId) =>{
-    this.setState({
-      todos:this.state.todos.map(item =>{
-        if(item.id ===itemId){
-          return{
-            ...item,
-            complete:!item.completed
-          }
-        }else {
-          return (item)
-        }
-      })
-    })
-  }
+           constructor(){
+             super();
+            
+            
+       this.state = {todos}
 
-  handleItemAdd = (itemName) => {
-    const todo ={
-      task: itemName,
-      id: Date.now(),
-      completed:false
+
+
+}
+handleToggle = (itemId)=> {
+  this.setState({
+    todos: this.state.todos.map(item=>{
+      if(item.id === itemId) {
+        return {
+          ...item,
+          completed: !item.completed
+        }
+      
+      }else {
+      return(item);
     }
-    const newTodos =[...this.state.todos, todo]
-    this.setState({
-      todos:newTodos
     })
-  }
-    handleItemCompleted =() =>{
-      const newTodos = this.state.todos.filter(todo =>{
-        return (!todo.completed)
-      })
-      this.setState({
-        todos:newTodos
-      })
-    }
+  });
+}
+
+
+
+handleItemAdd = (itemName) => {
+  const todo = {
+    task: itemName,
+    id: Date.now(),
+    completed: false
+  };
+
+  const newTodos = [...this.state.todos, todo];
+
+  this.setState({
+    todos: newTodos
+  });
+}
+
+handleItemCompleted = () => {
+  const newTodos = this.state.todos.filter(todo=>{
+    return(!todo.completed);
+  });
+    
+  this.setState({
+    todos: newTodos,
+  })
+}
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
   // this component is going to take care of state, and any change handlers you need to work with your state
   render() {
     return (
       <div>
-        <h2>Welcome to George's Todo App!</h2>
-        <TodoForm handleItemCompleted={this.handleItemCompleted} handleItemAdd={this.handleItemAdd} handleItemAdd={this.handleItemAdd} handleItemToggle ={this.handleItemToggle}/>
-        <TodoList handleItemCompleted= {this.handleItemCompleted } todos={this.state.todos}} handleItemToggle={this.handleItemToggle}
+        <h2>Welcome to your Todo App!</h2>
+        <TodoForm  handleItemAdd ={this.handleItemAdd} handleItemToggle={this.handleToggle} handleItemCompleted={this.handleItemCompleted}/>
+      <TodoList todos={this.state.todos} handleItemToggle={this.handleToggle} handleItemCompleted={this.handleItemCompleted} /> 
       </div>
     );
   }
